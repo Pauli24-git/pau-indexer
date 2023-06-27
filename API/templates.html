@@ -1,0 +1,15 @@
+<div class="border border-4 border-blue-500 p-8 my-8">
+    <h2>Message-ID:{{.MessageID}}</h2>
+    <h2>Date:{{.Date}}</h2>
+    <h2>From:{{.From}}</h2>
+    <h2>To:{{.To}}</h2>
+    <h2>Subject:{{.Subject}}</h2>
+
+    <div class="flex mt-8 ">
+        <span class="border border-blue-500"></span>
+
+        <p class="px-4 text-black-500 dark:text-black-300">
+        {{.Content}}
+        </p>
+    </div>
+</div>

@@ -2,7 +2,7 @@ package controller
 
 import (
 	service "Indexer-Prueba/API/services"
-	"encoding/json"
+	"html/template"
 	"log"
 	"net/http"
 )
@@ -19,7 +19,12 @@ func SearchItems(response http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		log.Fatalf("Error ")
 	}
+	tmpl := template.Must(template.ParseFiles("templates.html"))
 
-	json.NewEncoder(response).Encode(data)
-
+	for _, mail := range data {
+		err = tmpl.Execute(response, mail)
+		if err != nil {
+			log.Fatalf("Error al recorrer los mails")
+		}
+	}
 }
