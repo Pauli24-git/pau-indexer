@@ -22,25 +22,25 @@ type Zincsearch struct {
 func NewZincsearch() (*Zincsearch, error) {
 	err := godotenv.Load()
 	if err != nil {
-		return nil, fmt.Errorf("failed to load .env file: %w", err)
+		return nil, fmt.Errorf("Error al cargar el archivo .env: %w", err)
 	}
 
 	valueUser, boolUser := os.LookupEnv("username")
 	if boolUser {
 		if valueUser == "" {
-			return nil, fmt.Errorf("failed to load .env file: %w", err)
+			return nil, fmt.Errorf("Error al cargar el archivo .env: %w", err)
 		}
 	} else {
-		return nil, fmt.Errorf("failed to load .env file: %w", err)
+		return nil, fmt.Errorf("Error al cargar el archivo .env: %w", err)
 	}
 
 	valuePass, boolPass := os.LookupEnv("password")
 	if boolPass {
 		if valuePass == "" {
-			return nil, fmt.Errorf("username not found in environment variable")
+			return nil, fmt.Errorf("USERNAME no encontrado dentro de las variables de entorno")
 		}
 	} else {
-		return nil, fmt.Errorf("password not found in environment variables")
+		return nil, fmt.Errorf("Error: PASSWORD no encontrada dentro de las variables de entorno")
 	}
 
 	err = UserExists(valueUser, valuePass)
@@ -59,29 +59,32 @@ func UserExists(username string, password string) error {
 	credentials := models.Credentials{Id: username, Password: password}
 
 	jsonData, err := json.Marshal(credentials)
+	if err != nil {
+		log.Printf("Error en la conversion a JSON")
+	}
 
 	req, err := http.NewRequest(method, "http://localhost:4080/api/login", bytes.NewBuffer(jsonData))
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error al realizar la solicitud")
 	}
 	client := &http.Client{}
 	res, err := client.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error al realizar la solicitud HTTP")
 	}
 
 	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error al leer el cuerpo del response")
 	}
 
 	err = json.Unmarshal(data, &response)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error al parsear el archivo JSON")
 	}
 
 	if !response.Validated {
-		log.Fatal(err)
+		log.Printf("Error, el usuario no es válido")
 	}
 	return nil
 }
@@ -98,7 +101,7 @@ func (z Zincsearch) SearchQuery(query models.Search) (models.ZSResponse, error) 
 
 	req, err := http.NewRequest(method, "http://localhost:4080/api/mail/_search", bytes.NewBuffer(jsonData))
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error al realizar la solicitud")
 	}
 
 	auth := z.Username + ":" + z.Password
@@ -109,12 +112,12 @@ func (z Zincsearch) SearchQuery(query models.Search) (models.ZSResponse, error) 
 	client := &http.Client{}
 	res, err := client.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error al realizar la solicitud HTTP")
 	}
 
 	data, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error al leer el cuerpo del response")
 	}
 
 	if res.StatusCode == http.StatusOK {
@@ -123,7 +126,7 @@ func (z Zincsearch) SearchQuery(query models.Search) (models.ZSResponse, error) 
 
 	err = json.Unmarshal(data, &ZSResponse)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error al parsear el archivo JSON")
 	}
 	return ZSResponse, nil
 }

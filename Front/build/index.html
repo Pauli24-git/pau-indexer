@@ -5,12 +5,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./css/style.css" rel="stylesheet">
-    <title>Vue Basics</title>
+    <title>BUSCADOR DE MAILS</title>
+    <i class="fa-brands fa-searchengin fa-2xs" style="color: #1a5eb7;"></i>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/vue@next" defer></script>
     <script src="../app.js" defer></script>
 </head>
-
 <body>
 
     <div id="app">
@@ -19,13 +19,10 @@
                 <input type="search" v-model="term"
                     class="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
                     placeholder="Search Something" aria-label="Search" aria-describedby="button-addon3" />
-
-                <!--Search button-->
-
                 <div class="inline-block relative w-64">
                     <select
                         v-model="field"
-                        class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        class="block appearance-none w-full bg-cyan6 border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                         <option>ALL</option>
                         <option>Message-ID</option>
                         <option>From</option>
@@ -39,64 +36,17 @@
                         </svg>
                     </div>
                 </div>
+
                 <button
-                    class="mr-4 ml-4 relative z-[2] rounded-r border-2 border-primary px-6 py-2 text-xs font-medium uppercase text-primary transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0"
+                    class=" mr-4 ml-4 relative z-[2] bg-cyan8 rounded-r border-2 border-primary px-6 py-2 text-xs font-medium uppercase text-primary transition duration-150 ease-in-out hover:bg-cyan-600 hover:bg-opacity-5 focus:outline-none focus:ring-0"
                     type="button" id="button-addon3" @click="fetchData" data-te-ripple-init>
                     Go Search
                 </button>
-
             </div>
 
             <div v-html="templateContent" class="flex flex-col my-8"></div>
         </div>
     </div>
-
-
-
-    <!-- <div class="flex-1 mt-8 lg:mx-12 lg:mt-0">
-        <div>
-            <button class="flex items-center focus:outline-none">
-                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
-
-                <h1 class="mx-4 text-xl text-gray-700 dark:text-white">How i can play for my appoinment ?</h1>
-            </button>
-
-            <div class="flex mt-8 md:mx-10">
-                <span class="border border-blue-500"></span>
-
-                <p class="max-w-3xl px-4 text-gray-500 dark:text-gray-300">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, eum quae. Harum officiis reprehenderit ex quia ducimus minima id provident molestias optio nam vel, quidem iure voluptatem, repellat et ipsa.
-                </p>
-            </div>
-        </div>
-    <div id="app">
-      <button @click="fetchData">Fetch Data</button>
-  
-      <div v-html="templateContent"></div>
-    </div>  -->
-
-    <!-- 
-        <div class="flex-1 mt-8 lg:mx-12 lg:mt-0">
-            <div>
-                <button class="flex items-center focus:outline-none">
-                    <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
-
-                    <h1 class="mx-4 text-xl text-gray-700 dark:text-white">How i can play for my appoinment ?</h1>
-                </button>
-
-                <div class="flex mt-8 md:mx-10">
-                    <span class="border border-blue-500"></span>
-
-                    <p class="max-w-3xl px-4 text-gray-500 dark:text-gray-300">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, eum quae. Harum officiis reprehenderit ex quia ducimus minima id provident molestias optio nam vel, quidem iure voluptatem, repellat et ipsa.
-                    </p>
-                </div>
-            </div>
-        <div id="app">
-          <button @click="fetchData">Fetch Data</button>
-      
-          <div v-html="templateContent"></div>
-        </div> -->
 
 </body>
 

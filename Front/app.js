@@ -14,11 +14,9 @@ const app = Vue.createApp({
               fetch(urlbase + term + '&' + field )
                 .then(response => response.text())
                 .then(data => {
-                  // Assign the fetched template to the data property
                   this.templateContent = data;
                 })
                 .catch(error => {
-                  // Handle any errors
                   console.error(error);
                 });
             }

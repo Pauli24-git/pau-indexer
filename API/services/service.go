@@ -3,13 +3,13 @@ package service
 import (
 	"Indexer-Prueba/API/db"
 	"Indexer-Prueba/API/models"
-	"fmt"
+	"log"
 )
 
 func CreateSearchQuery(term string, field string) (models.Search, error) {
 	sortFields := []string{"-@timestamp"}
-	from := 0
-	maxResults := 20
+	const from = 0
+	const maxResults = 20
 	sourceFields := []string{}
 
 	query := models.Search{
@@ -30,11 +30,18 @@ func SendQuery(term string, field string) ([]models.Source, error) {
 	var data []models.Source
 	newZS, err := db.NewZincsearch()
 	if err != nil {
-		fmt.Println(err)
+		log.Printf("Error con el login a ZincSearch")
 	}
 
 	query, err := CreateSearchQuery(term, field)
+	if err != nil {
+		log.Printf("Error al recibir la consulta")
+	}
+
 	ZSResponse, err := newZS.SearchQuery(query)
+	if err != nil {
+		log.Printf("Error al recibir la respuesta de Zincsearch")
+	}
 
 	for _, src := range ZSResponse.Hits.Hits {
 		data = append(data, src.Source)
