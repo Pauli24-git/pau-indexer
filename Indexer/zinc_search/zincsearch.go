@@ -28,16 +28,16 @@ func NewZincsearch() (*Zincsearch, error) {
 	valueUser, boolUser := os.LookupEnv("username")
 	if boolUser {
 		if valueUser == "" {
-			return nil, fmt.Errorf("failed to load .env file: %w", err)
+			return nil, fmt.Errorf("username not found in environment variable")
 		}
 	} else {
-		return nil, fmt.Errorf("failed to load .env file: %w", err)
+		return nil, fmt.Errorf("username not found in environment variable")
 	}
 
 	valuePass, boolPass := os.LookupEnv("password")
 	if boolPass {
 		if valuePass == "" {
-			return nil, fmt.Errorf("username not found in environment variable")
+			return nil, fmt.Errorf("password not found in environment variable")
 		}
 	} else {
 		return nil, fmt.Errorf("password not found in environment variables")

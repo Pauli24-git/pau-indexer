@@ -19,7 +19,7 @@ type Converter struct {
 
 func ReadMails(ruta string) []byte {
 	var c Converter
-	c.Mails.Index = "mail"
+	c.Mails.Index = "mails"
 	var filesList []string
 	ch := make(chan map[string]string)
 	wg := new(sync.WaitGroup)
@@ -31,8 +31,6 @@ func ReadMails(ruta string) []byte {
 	}
 
 	batches := DivideInBatches(&filesList, 10000)
-
-	//fmt.Println(time.Now())
 
 	for _, file := range batches {
 		wg.Add(1)
@@ -84,12 +82,10 @@ func ReadFiles(paths []string, ch chan map[string]string, wg *sync.WaitGroup) {
 		var value string
 		var key string
 		var keyAnterior string
-		//var esContent bool
 
 		scanner := bufio.NewScanner(file)
 
 		for scanner.Scan() {
-
 			linea := scanner.Text()
 			if key == "Content" {
 				mapita[key] += linea
