@@ -11,7 +11,13 @@ import (
 	"net/http"
 )
 
+func NewZinc(url string) ZincSearch {
+	c := ZincSearch{url}
+	return c
+}
+
 type ZincSearch struct {
+	url string
 }
 
 func (z *ZincSearch) SearchQuery(credentials models.Credentials, query models.Search) (models.ZSResponse, error) {
@@ -24,7 +30,7 @@ func (z *ZincSearch) SearchQuery(credentials models.Credentials, query models.Se
 		return ZSResponse, err
 	}
 
-	req, err := http.NewRequest(method, "http://localhost:4080/api/mail/_search", bytes.NewBuffer(jsonData))
+	req, err := http.NewRequest(method, z.url+"/api/mail/_search", bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Printf("Error al realizar la solicitud")
 	}

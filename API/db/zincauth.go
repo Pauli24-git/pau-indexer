@@ -13,7 +13,13 @@ import (
 	"github.com/joho/godotenv"
 )
 
+func NewZincAuth(url string) ZincAuthHandler {
+	z := ZincAuthHandler{url}
+	return z
+}
+
 type ZincAuthHandler struct {
+	url string
 }
 
 func (z *ZincAuthHandler) ValidateAuthDbUser() (models.Credentials, error) {
@@ -59,7 +65,7 @@ func (z *ZincAuthHandler) UserExists(credentials models.Credentials) error {
 		log.Printf("Error en la conversion a JSON")
 	}
 
-	req, err := http.NewRequest(method, "http://localhost:4080/api/login", bytes.NewBuffer(jsonData))
+	req, err := http.NewRequest(method, z.url+"/api/login", bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Printf("Error al realizar la solicitud")
 	}
