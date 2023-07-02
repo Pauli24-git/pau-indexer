@@ -3,47 +3,52 @@ package models
 import "time"
 
 type ZSResponse struct {
-	Took     int  `json:"took"`
-	TimedOut bool `json:"timed_out"`
-	Shards   struct {
-		Total      int `json:"total"`
-		Successful int `json:"successful"`
-		Skipped    int `json:"skipped"`
-		Failed     int `json:"failed"`
-	} `json:"_shards"`
-	Hits struct {
-		Total struct {
-			Value int `json:"value"`
-		} `json:"total"`
-		MaxScore float64 `json:"max_score"`
-		Hits     []struct {
-			Index     string    `json:"_index"`
-			Type      string    `json:"_type"`
-			ID        string    `json:"_id"`
-			Score     float64   `json:"_score"`
-			Timestamp time.Time `json:"@timestamp"`
-			Source    Source    `json:"_source"`
-		} `json:"hits"`
-	} `json:"hits"`
+	Timed_out bool    `json:"timed_out"`
+	Shards    Shards  `json:"_shards"`
+	Hits      Hits    `json:"hits"`
+	Took      float64 `json:"took"`
+}
+
+type Shards struct {
+	Total      float64 `json:"total"`
+	Successful float64 `json:"successful"`
+	Skipped    float64 `json:"skipped"`
+	Failed     float64 `json:"failed"`
+}
+
+type Hits struct {
+	Total     Total     `json:"total"`
+	Max_score float64   `json:"max_score"`
+	Hits      []Hits    `json:"hits"`
+	Index     string    `json:"_index"`
+	Type      string    `json:"_type"`
+	Id        string    `json:"_id"`
+	Score     float64   `json:"_score"`
+	Timestamp time.Time `json:"@timestamp"`
+	Source    Source    `json:"_source"`
+}
+
+type Total struct {
+	Value float64 `json:"value"`
 }
 
 type Source struct {
-	Timestamp               time.Time `json:"@timestamp"`
-	Bcc                     string    `json:"Bcc"`
-	Cc                      string    `json:"Cc"`
-	Content                 string    `json:"Content"`
-	ContentTransferEncoding string    `json:"Content-Transfer-Encoding"`
-	Date                    string    `json:"Date"`
-	From                    string    `json:"From"`
-	MessageID               string    `json:"Message-ID"`
-	MimeVersion             string    `json:"Mime-Version"`
-	Subject                 string    `json:"Subject"`
-	To                      string    `json:"To"`
-	XFileName               string    `json:"X-FileName"`
-	XFolder                 string    `json:"X-Folder"`
-	XFrom                   string    `json:"X-From"`
-	XOrigin                 string    `json:"X-Origin"`
-	XTo                     string    `json:"X-To"`
-	XBcc                    string    `json:"X-bcc"`
-	XCc                     string    `json:"X-cc"`
+	X_To                      string    `json:"X-To"`
+	Bcc                       string    `json:"Bcc"`
+	Date                      string    `json:"Date"`
+	Subject                   string    `json:"Subject"`
+	X_FileName                string    `json:"X-FileName"`
+	X_Origin                  string    `json:"X-Origin"`
+	From                      string    `json:"From"`
+	Message_ID                string    `json:"Message-ID"`
+	X_bcc                     string    `json:"X-bcc"`
+	Content                   string    `json:"Content"`
+	Content_Transfer_Encoding string    `json:"Content-Transfer-Encoding"`
+	X_Folder                  string    `json:"X-Folder"`
+	X_From                    string    `json:"X-From"`
+	X_cc                      string    `json:"X-cc"`
+	Timestamp                 time.Time `json:"@timestamp"`
+	Cc                        string    `json:"Cc"`
+	Mime_Version              string    `json:"Mime-Version"`
+	To                        string    `json:"To"`
 }

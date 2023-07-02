@@ -4,50 +4,77 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./css/style.css" rel="stylesheet">
     <title>BUSCADOR DE MAILS</title>
-    <i class="fa-brands fa-searchengin fa-2xs" style="color: #1a5eb7;"></i>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet" />
+
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="https://cdn.tailwindcss.com/5.2.0/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+    <script src="https://cdn.tailwindcss.com/3.3.0"></script>
     <script src="https://unpkg.com/vue@next" defer></script>
     <script src="../app.js" defer></script>
 </head>
 <body>
 
-    <div id="app">
-        <div class="mb-3 p-8 ">
-            <div class="relative mb-4 flex w-full flex-wrap items-stretch">
-                <input type="search" v-model="term"
-                    class="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                    placeholder="Search Something" aria-label="Search" aria-describedby="button-addon3" />
-                <div class="inline-block relative w-64">
-                    <select
-                        v-model="field"
-                        class="block appearance-none w-full bg-cyan6 border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                        <option>ALL</option>
-                        <option>Message-ID</option>
-                        <option>From</option>
-                        <option>To</option>
-                        <option>Content</option>
-                        <option>Subject</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
+    <div id="app" class="flex flex-wrap w-full">
+        <div class="flex flex-col w-full">
+
+            <div class="flex flex-col justify-center px-8 pt-8 my-auto md:justify-start md:pt-0 md:px-24 lg:px-32">
+
+                <div class="flex flex-col justify-center px-8 pt-8 my-auto md:justify-start md:pt-0 md:px-24 lg:px-32">
+                    <div class="flex">
+                      <p class="w-1/2 self-center text-8xl text-center font-semibold text-indigo-900 mx-auto">
+                        ¡Welcome!
+                      </p>
+                      <div class="w-1/2 flex items-center justify-end">
+                        <img alt="profil" src="/gopher.jpg" class="w-64">
+                      </div>
                     </div>
-                </div>
+                  </div>
 
-                <button
-                    class=" mr-4 ml-4 relative z-[2] bg-cyan8 rounded-r border-2 border-primary px-6 py-2 text-xs font-medium uppercase text-primary transition duration-150 ease-in-out hover:bg-cyan-600 hover:bg-opacity-5 focus:outline-none focus:ring-0"
-                    type="button" id="button-addon3" @click="fetchData" data-te-ripple-init>
-                    Go Search
-                </button>
+                <form class="flex flex-col pt-3 md:pt-8">
+                    <div class="flex flex-col pt-4">
+                        <div class="flex relative ">
+                            <span
+                                class=" inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 1792 1792"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z">
+                                    </path>
+                                </svg>
+                            </span>
+                            <input input type="search" v-model="term" id="design-login-email"
+                                class=" flex-1 appearance-none border border-gray-300 w-full py-6 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                placeholder="Find an email by name or phrase" />
+                            <select
+                               v-model="field"
+                                class="mx-2 block px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm w-80 focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+                                <option value="">
+                                    ALL
+                                </option>
+                                <option>Message-ID</option>
+                                <option>From</option>
+                                <option>To</option>
+                                <option>Content</option>
+                                <option>Subject</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" id="button-addon3" @click="fetchData" data-te-ripple-init 
+                        class="w-full my-8 px-4 py-2 text-base font-semibold text-center text-white transition duration-200 ease-in bg-cyan-600 shadow-md hover:text-black hover:bg-white focus:outline-none focus:ring-2">
+                        <span class="w-full">
+                            GO SEARCH
+                        </span>
+                    </button>
+                </form>
+
             </div>
-
-            <div v-html="templateContent" class="flex flex-col my-8"></div>
+        </div>
+        <div v-html="templateContent" class="flex flex-col my-8 mx-8"></div>
+       
         </div>
     </div>
-
 </body>
 
 </html>

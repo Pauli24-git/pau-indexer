@@ -1,7 +1,6 @@
 package service
 
 import (
-	"Indexer-Prueba/API/db"
 	"Indexer-Prueba/API/models"
 	"log"
 )
@@ -26,9 +25,14 @@ func CreateSearchQuery(term string, field string) (models.Search, error) {
 	return query, nil
 }
 
-func SendQuery(term string, field string) ([]models.Source, error) {
+type Search_Service struct {
+	AuthZinc models.ZincAuthHandler
+	DB       models.DBHandler
+}
+
+func (s Search_Service) SendQuery(term string, field string) ([]models.Source, error) {
 	var data []models.Source
-	newZS, err := db.NewZincsearch()
+	credentials, err := s.AuthZinc.ValidateAuthDbUser()
 	if err != nil {
 		log.Printf("Error con el login a ZincSearch")
 	}
@@ -38,7 +42,7 @@ func SendQuery(term string, field string) ([]models.Source, error) {
 		log.Printf("Error al recibir la consulta")
 	}
 
-	ZSResponse, err := newZS.SearchQuery(query)
+	ZSResponse, err := s.DB.SearchQuery(credentials, query)
 	if err != nil {
 		log.Printf("Error al recibir la respuesta de Zincsearch")
 	}

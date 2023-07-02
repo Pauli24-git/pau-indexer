@@ -19,7 +19,7 @@ type Converter struct {
 
 func ReadMails(ruta string) []byte {
 	var c Converter
-	c.Mails.Index = "mails"
+	c.Mails.Index = "mailsPrueba3"
 	var filesList []string
 	ch := make(chan map[string]string)
 	wg := new(sync.WaitGroup)
