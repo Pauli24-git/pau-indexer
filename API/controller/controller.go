@@ -32,3 +32,11 @@ func SearchItems(response http.ResponseWriter, request *http.Request) {
 		}
 	}
 }
+
+func MethodNotAllowed(response http.ResponseWriter, request *http.Request) {
+	http.Error(response, "Method Not Allowed", 405)
+}
+
+func NotFound(response http.ResponseWriter, request *http.Request) {
+	http.Error(response, "Page not found", 404)
+}
