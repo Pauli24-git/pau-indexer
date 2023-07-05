@@ -23,12 +23,20 @@ func SearchItems(response http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		log.Printf("Error al enviar la solicitud")
 	}
-	tmpl := template.Must(template.ParseFiles("templates.html"))
 
-	for _, mail := range data {
-		err = tmpl.Execute(response, mail)
+	if len(data) == 0 {
+		tmpl := template.Must(template.ParseFiles("templateNoMatch.html"))
+		err = tmpl.Execute(response, "")
 		if err != nil {
-			log.Printf("Error al recorrer los mails")
+			log.Printf("Error al ejecutar la visualizacion del template")
+		}
+	} else {
+		tmpl := template.Must(template.ParseFiles("templates.html"))
+		for _, mail := range data {
+			err = tmpl.Execute(response, mail)
+			if err != nil {
+				log.Printf("Error al recorrer los mails")
+			}
 		}
 	}
 }

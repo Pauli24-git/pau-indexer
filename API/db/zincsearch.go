@@ -11,6 +11,7 @@ import (
 	"net/http"
 )
 
+// Funcion de db que crea un nuevo struct del tipo ZincSearch
 func NewZinc(url string) ZincSearch {
 	c := ZincSearch{url}
 	return c
@@ -20,6 +21,7 @@ type ZincSearch struct {
 	url string
 }
 
+// Esta funcion es del tipo ZincSearch. Recibo credentials y query del paquete models. Se hace un request que envia la query en forma de JSON, y con las credentials se setea el header para la autenticacion. Devuelve la respuesta que se guarda en un ZSResponse.
 func (z *ZincSearch) SearchQuery(credentials models.Credentials, query models.Search) (models.ZSResponse, error) {
 	method := "POST"
 	var ZSResponse models.ZSResponse

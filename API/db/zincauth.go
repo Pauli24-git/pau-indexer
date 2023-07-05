@@ -13,6 +13,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// Funcion que pertenece a db, devuelve un struct del tipo ZincAuthHandler
 func NewZincAuth(url string) ZincAuthHandler {
 	z := ZincAuthHandler{url}
 	return z
@@ -22,6 +23,7 @@ type ZincAuthHandler struct {
 	url string
 }
 
+// Funcion del tipo ZincAuthHandler que valida la autenticacion del usuario con las variables de entorno
 func (z *ZincAuthHandler) ValidateAuthDbUser() (models.Credentials, error) {
 	err := godotenv.Load()
 	cred := models.Credentials{}
@@ -32,7 +34,7 @@ func (z *ZincAuthHandler) ValidateAuthDbUser() (models.Credentials, error) {
 	valueUser, boolUser := os.LookupEnv("username")
 	if boolUser {
 		if valueUser == "" {
-			return cred, fmt.Errorf("Error al cargar el archivo .env: %w", err)
+			return cred, fmt.Errorf("Sin valores. Error al cargar el archivo .env: %w", err)
 		}
 	} else {
 		return cred, fmt.Errorf("Error al cargar el archivo .env: %w", err)
@@ -41,7 +43,7 @@ func (z *ZincAuthHandler) ValidateAuthDbUser() (models.Credentials, error) {
 	valuePass, boolPass := os.LookupEnv("password")
 	if boolPass {
 		if valuePass == "" {
-			return cred, fmt.Errorf("USERNAME no encontrado dentro de las variables de entorno")
+			return cred, fmt.Errorf("Sin valores: USERNAME no encontrado dentro de las variables de entorno")
 		}
 	} else {
 		return cred, fmt.Errorf("Error: PASSWORD no encontrada dentro de las variables de entorno")
@@ -56,6 +58,7 @@ func (z *ZincAuthHandler) ValidateAuthDbUser() (models.Credentials, error) {
 	return cred, nil
 }
 
+// Funcion del tipo ZincAuthHandler que verifica si el usuario existe, chequeando las credenciales haciendo una request a la api de login de ZincSearch
 func (z *ZincAuthHandler) UserExists(credentials models.Credentials) error {
 	var response models.LoginResponse
 	method := "POST"
